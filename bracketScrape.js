@@ -33,4 +33,6 @@ for (let set of sets) {
         + getPlayerTag(player2Block) + '\t' + getPlayerScore(player2Block) + '\n'
 }
 
+console.log(returnString)
+
 copyTextToClipboard(returnString)

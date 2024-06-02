@@ -12,7 +12,13 @@ function copyTextToClipboard(text) {
 let playersRow = document.getElementsByClassName('rr-row')[0]
 let playerTags = playersRow.getElementsByClassName('match-player-name-container')
 let playerTagsArr = []
-for (let playerTag of playerTags) playerTagsArr.push(playerTag.textContent)
+for (let playerTag of playerTags) {
+    if (playerTag.children.length > 0) { // includes seed
+        playerTagsArr.push(playerTag.textContent.split(' ').slice(1).join(' '))
+    } else { // just the tag 
+        playerTagsArr.push(playerTag.textContent)
+    }
+}
 
 // https://stackoverflow.com/questions/222841/most-efficient-way-to-convert-an-htmlcollection-to-an-array
 let setRows = [].slice.call(document.getElementsByClassName('rr-row')).slice(1)
@@ -20,7 +26,7 @@ let setRows = [].slice.call(document.getElementsByClassName('rr-row')).slice(1)
 let returnString = ''
 
 for (let i=0; i<setRows.length; i++) {
-    let sets = setRows[i].getElementsByClassName('rr-match')
+    let sets = setRows[i].getElementsByClassName('score')
     for (let j=0; j<sets.length; j++) {
         if (i===j) break // skip blank and opposite cells
         let player1Tag = playerTagsArr[i]
